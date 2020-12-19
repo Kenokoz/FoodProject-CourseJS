@@ -88,7 +88,71 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         }
     }
-
     setClock(".timer", deadline);
+
+    // Modal window
+
+    const modalTrigger = document.querySelectorAll("[data-modal]");
+    const modal = document.querySelector(".modal");
+    const modalCloseBtn = document.querySelector("[data-close]");
+
+    modalTrigger.forEach(btn => {
+        btn.addEventListener("click", () => {
+            modal.classList.add("show");
+            modal.classList.remove("hide");
+            document.body.style.overflow = "hidden";
+        });
+    });
+
+    function closeModal() {
+        modal.classList.add("hide");
+        modal.classList.remove("show");
+        document.body.style.overflow = "";
+    }
+
+    modalCloseBtn.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.code === "Escape" && modal.classList.contains("show")) {
+            closeModal();
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+    // const modal = document.querySelector(".modal");
+    // const openModal = document.querySelectorAll("[data-modal]");
+    // const closeModal = document.querySelectorAll("[data-close]");
+
+    // openModal.forEach(item => {
+    //     item.addEventListener("click", (event) => {
+    //         event.preventDefault();
+
+    //         modal.style.display = "block";
+    //     });
+    // });
+
+    // closeModal.forEach(item => {
+    //     item.addEventListener("click", (event) => {
+    //         const target = event.target;
+    //         if (target && target.classList[0] === "modal" || target.classList[0] === "modal__close") {
+    //             modal.style.display = "none";
+    //         }
+    //     });
+    // });
 });
 
