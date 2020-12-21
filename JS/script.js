@@ -235,14 +235,19 @@ window.addEventListener("DOMContentLoaded", () => {
             form.insertAdjacentElement("afterend", statusMessage);
 
             const formData = new FormData(form);  // в input ВСЕГДА должен указываться атрибут name
+            const object = {};
+            formData.forEach((value, key) => {
+                object[key] = value;
+            });
 
             fetch("server.php", {
                 method: "POST",
-                // headers: {
-                //     "Content-type": "application/json"
-                // },        
-                body: formData
-            }).then(data => data.text())
+                headers: {
+                    "Content-type": "application/json"
+                },        
+                body: JSON.stringify(object)
+            })
+            .then(data => data.text())
             .then(data => {
                 console.log(data);
                 showThanksModal(message.success);
