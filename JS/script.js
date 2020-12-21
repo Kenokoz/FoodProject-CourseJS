@@ -235,10 +235,17 @@ window.addEventListener("DOMContentLoaded", () => {
             form.append(statusMessage);
 
             const request = new XMLHttpRequest(); // с данными formData заголовок НЕ НУЖЕН!
+
             const formData = new FormData(form);  // в input ВСЕГДА должен указываться атрибут name
+            const object = {};
+            formData.forEach((value, key) => {
+                object[key] = value;
+            });
+            const json = JSON.stringify(object);
 
             request.open("POST", "server.php");
-            request.send(formData);
+            request.setRequestHeader("Content-type", "application/json");
+            request.send(json);
 
             request.addEventListener("load", () => {
                 if (request.status === 200) {
